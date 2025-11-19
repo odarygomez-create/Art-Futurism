@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Page 2</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    body {
+      font-family: 'Arial', 'Helvetica', sans-serif;
+      background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+      color: #fff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 0;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Responsive breakpoints */
+    @media (max-width: 1024px) {
+      .container {
+        grid-template-columns: 300px 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        linear-gradient(90deg, transparent 0%, rgba(0, 212, 212, 0.1) 50%, transparent 100%),
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 212, 212, 0.03) 2px, rgba(0, 212, 212, 0.03) 4px);
+      pointer-events: none;
+      animation: fadeIn 2s ease-in;
+    }
+
+    .left-panel {
+      background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+      padding: 40px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      border-right: 3px solid #00d4d4;
+      animation: slideIn 0.8s ease-out;
+    }
+
+    @media (max-width: 768px) {
+      .left-panel {
+        padding: 30px 20px;
+        border-right: none;
+        border-bottom: 3px solid #00d4d4;
+      }
+    }
+
+    .left-panel::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(180deg, #00d4d4 0%, transparent 100%);
+      box-shadow: 0 0 20px #00d4d4;
+    }
+
+    @media (max-width: 768px) {
+      .left-panel::after {
+        width: 100%;
+        height: 3px;
+        top: auto;
+        bottom: 0;
+        background: linear-gradient(90deg, #00d4d4 0%, transparent 100%);
+      }
+    }
+
+    .title-section h1 {
+      font-family: 'Impact', 'Arial Black', sans-serif;
+      font-size: clamp(2em, 5vw, 4.5em);
+      font-style: italic;
+      margin-bottom: 20px;
+      line-height: 1;
+      color: #00d4d4;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      text-shadow: 
+        3px 3px 0 #000,
+        0 0 30px rgba(0, 212, 212, 0.5);
+      transform: skewY(-2deg);
+    }
+
+    .title-section h2 {
+      font-family: 'Impact', 'Arial Black', sans-serif;
+      font-size: clamp(1.8em, 4vw, 3.5em);
+      font-style: italic;
+      margin-bottom: 20px;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transform: skewY(-2deg);
+    }
+
+    .title-section ul {
+      list-style: none;
+      margin: 20px 0;
+    }
+
+    .title-section ul li {
+      font-size: 1.1em;
+      color: #00d4d4;
+      margin-bottom: 5px;
+    }
+
+    nav ul {
+      list-style: none;
+      margin-top: 30px;
+    }
+
+    nav ul li {
+      margin: 10px 0;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: #00d4d4;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #fff;
+    }
+
+    .page-info {
+      margin-top: 40px;
+      border-top: 2px solid #00d4d4;
+      padding-top: 20px;
+    }
+
+    .page-info h3 {
+      font-family: 'Impact', sans-serif;
+      font-size: 1.5em;
+      font-style: italic;
+      margin-bottom: 10px;
+      color: #00d4d4;
+      letter-spacing: 2px;
+    }
+
+    /* Contact Form Styling */
+    .contact-form {
+      margin-top: 20px;
+    }
+
+    .contact-form label {
+      display: block;
+      margin-top: 15px;
+      color: #00d4d4;
+      font-size: 0.9em;
+    }
+
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid #00d4d4;
+      color: #fff;
+      font-family: inherit;
+    }
+
+    .contact-form input[type="submit"] {
+      background: #00d4d4;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background 0.3s;
+    }
+
+    .contact-form input[type="submit"]:hover {
+      background: #00ffff;
+    }
+
+    .main-content {
+      background: linear-gradient(180deg, #fff 0%, #f5f5f5 100%);
+      padding: 40px 30px;
+      position: relative;
+      animation: fadeIn 1s ease-in;
+      color: #000;
+      overflow-y: auto;
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        padding: 30px 20px;
+      }
+    }
+
+    .main-content h2 {
+      font-size: clamp(1.8em, 4vw, 2.5em);
+      margin-bottom: 30px;
+      color: #1a1a1a;
+    }
+
+    /* Responsive Image Gallery */
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 480px) {
+      .image-gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+      background: #ddd;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0, 212, 212, 0.4);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .gallery-item .placeholder {
+      width: 100%;
+      height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #e0e0e0 0%, #c0c0c0 100%);
+      color: #666;
+      font-size: 0.9em;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .gallery-item .caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.7);
+      color: #00d4d4;
+      padding: 10px;
+      font-size: 0.9em;
+      transform: translateY(100%);
+      transition: transform 0.3s;
+    }
+
+    .gallery-item:hover .caption {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <div class="title-section">
+        <h1>Welcome to Page 2</h1>
+        <h2>Explore Futurism</h2>
+        <ul>
+          <li>Odary Gomez</li>
+          <li>GD230/T301</li>
+          <li>Fall/2025</li>
+        </ul>
+        <nav>
+          <ul>
+            <li>
+              <a href="index.html">HOME</a>
+            </li>
+            <li>PAGE2</li>
+          </ul>
+        </nav>
+      </div>
+      <div class="page-info">
+        <h3>Contact Us</h3>
+        <p style="color: #ccc; font-size: 0.9em; margin-bottom: 10px;">Leave us a message:</p>
+        <form class="contact-form" action="/action_page.php">
+          <label for="fname">First Name</label> <input type="text" id="fname" name="firstname" placeholder="Your name.."> <label for="lname">Last Name</label> <input type="text" id="lname" name="lastname" placeholder="Your last name.."> <label for="country">Country</label> <select id="country" name="country">
+            <option value="australia">
+              Australia
+            </option>
+            <option value="canada">
+              Canada
+            </option>
+            <option value="usa">
+              USA
+            </option>
+          </select> <label for="subject">Subject</label> 
+          <textarea id="subject" name="subject" placeholder="Write something.." rows="4"></textarea> <input type="submit" value="Submit">
+        </form>
+      </div>
+    </div>
+    <div class="main-content">
+      <h2>Futurism Image Gallery</h2>
+      <div class="image-gallery">
+        <div class="gallery-item">
+          <img src="images/Gino Severini, 1912, Dynamic Hieroglyphic of the Bal Tabarin, oil on canvas with sequins, 161.6x156.2 cm, MoMA, New York..jpg" alt="Gino Severini - Dynamic Hieroglyphic" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="placeholder" style="display:none;">
+            Image not found:<br>
+            Gino Severini, 1912
+          </div>
+          <div class="caption">
+            Gino Severini - Dynamic Hieroglyphic (1912)
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/535392840_24367140779561470_7686236818048932279_n.jpg" alt="Futurism artwork" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="placeholder" style="display:none;">
+            Image not found
+          </div>
+          <div class="caption">
+            Futurism Artwork
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/Natalia_Goncharova,_1913,_The_Cyclist,_oil_on_canvas,_78_x_105_cm,_The_Russian_Museum,_St.Petersburg.jpg" alt="Natalia Goncharova - The Cyclist" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="placeholder" style="display:none;">
+            Image not found:<br>
+            Natalia Goncharova, 1913
+          </div>
+          <div class="caption">
+            Natalia Goncharova - The Cyclist (1913)
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/simultaneous-visions-1912.jpg" alt="Simultaneous Visions" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="placeholder" style="display:none;">
+            Image not found:<br>
+            Simultaneous Visions, 1912
+          </div>
+          <div class="caption">
+            Simultaneous Visions (1912)
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/Unknown.jpeg" alt="Futurism artwork" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="placeholder" style="display:none;">
+            Image not found
+          </div>
+          <div class="caption">
+            Futurism Artwork
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/Knife-Grinder-Principle-Glittering-oil-canvas-Kazimir.jpg.webp" alt="Knife Grinder" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="placeholder" style="display:none;">
+            Image not found:<br>
+            Knife Grinder
+          </div>
+          <div class="caption">
+            Knife Grinder - Kazimir Malevich
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
